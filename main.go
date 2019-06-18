@@ -8,33 +8,37 @@ import(
   "net/http"
   "strings"
   "strconv"
+  "encoding/json"
 )
 
 type Calculation struct {
-  op string
-  x float64
-  y float64
-  calc float64
+  Op string
+  X float64
+  Y float64
+  Calc float64
 }
 
 func addition(w http.ResponseWriter, r *http.Request){
+  fmt.Println("Endpoint hit: addition")
   u := strings.Split(r.URL.Path, "/")
-  x, err := strconv.ParseFloat(u[2], 64)
+  x, err := strconv.ParseFloat(u[3], 64)
   if err != nil {
     panic(err)
   }
-  y, err := strconv.ParseFloat(u[3], 64)
+  y, err := strconv.ParseFloat(u[4], 64)
   if err != nil {
     panic(err)
   }
   calc := x + y
-  returnVal := Calculation{"+", x, y, calc}
-  fmt.Fprintf(w, "Hello, Welcome %s", returnVal)
-  fmt.Println("Endpoint hit: homepage")
+  returnVal := &Calculation{Op: "+", X: x, Y: y, Calc: calc}
+  fmt.Println(returnVal)
+  if err := json.NewEncoder(w).Encode(returnVal); err != nil {
+    panic(err)
+  }
 }
 
 func handleRequests() {
-  http.HandleFunc("/+/", addition)
+  http.HandleFunc("/calculate/+/", addition)
   log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
