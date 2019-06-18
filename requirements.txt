@@ -11,5 +11,10 @@ Only show the last 10 calculations descending from most recent to oldest.
 Once the calculator is completed, send me the URL for your application.
 
 api routes:
-post /calculate/x/y -> (request(x,y) -> response(calculation))
+post /calculate/x/y/op -> (request(x,y,op) -> response(calculation))
+it("/calculate/2/3/+").should("return response with calculation=5")
+it("/calculate/2/3/-").should("return response with calculation=-1")
+it("/calculate/2/3/*").should("return response with calculation=6")
+it("/calculate/6/3/%").should("return response with calculation=2")
+
 get /calculations
