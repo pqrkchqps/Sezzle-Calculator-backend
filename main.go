@@ -18,6 +18,8 @@ type Calculation struct {
   Calc float64
 }
 
+var calculations []Calculation
+
 func addition(w http.ResponseWriter, r *http.Request){
   fmt.Println("Endpoint hit: addition")
   u := strings.Split(r.URL.Path, "/")
@@ -35,6 +37,7 @@ func addition(w http.ResponseWriter, r *http.Request){
   if err := json.NewEncoder(w).Encode(returnVal); err != nil {
     panic(err)
   }
+  calculations = append(calculations, *returnVal)
 }
 
 func subtraction(w http.ResponseWriter, r *http.Request){
@@ -54,6 +57,7 @@ func subtraction(w http.ResponseWriter, r *http.Request){
   if err := json.NewEncoder(w).Encode(returnVal); err != nil {
     panic(err)
   }
+  calculations = append(calculations, *returnVal)
 }
 
 func multiplication(w http.ResponseWriter, r *http.Request){
@@ -68,11 +72,12 @@ func multiplication(w http.ResponseWriter, r *http.Request){
     panic(err)
   }
   calc := x * y
-  returnVal := &Calculation{Op: "-", X: x, Y: y, Calc: calc}
+  returnVal := &Calculation{Op: "*", X: x, Y: y, Calc: calc}
   fmt.Println(returnVal)
   if err := json.NewEncoder(w).Encode(returnVal); err != nil {
     panic(err)
   }
+  calculations = append(calculations, *returnVal)
 }
 
 func division(w http.ResponseWriter, r *http.Request){
@@ -87,11 +92,30 @@ func division(w http.ResponseWriter, r *http.Request){
     panic(err)
   }
   calc := x / y
-  returnVal := &Calculation{Op: "-", X: x, Y: y, Calc: calc}
+  returnVal := &Calculation{Op: "d", X: x, Y: y, Calc: calc}
   fmt.Println(returnVal)
   if err := json.NewEncoder(w).Encode(returnVal); err != nil {
     panic(err)
   }
+  calculations = append(calculations, *returnVal)
+}
+
+func getCalculations(w http.ResponseWriter, r *http.Request){
+  fmt.Println("Endpoint hit: calulations")
+  idx := len(calculations)-10
+  if (idx < 0){
+    idx = 0
+  }
+  calculations = calculations[idx:]
+  fmt.Println(calculations)
+  if err := json.NewEncoder(w).Encode(calculations); err != nil {
+    panic(err)
+  }
+}
+
+func resetCalculations(w http.ResponseWriter, r *http.Request){
+  fmt.Println("Endpoint hit: calulations/reset")
+  calculations = calculations[:0]
 }
 
 func handleRequests() {
@@ -99,6 +123,10 @@ func handleRequests() {
   http.HandleFunc("/calculate/-/", subtraction)
   http.HandleFunc("/calculate/*/", multiplication)
   http.HandleFunc("/calculate/d/", division)
+  http.HandleFunc("/calculations/", getCalculations)
+  http.HandleFunc("/calculations/reset", resetCalculations)
+
+
   log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
