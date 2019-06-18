@@ -9,3 +9,7 @@ User A sees this update immediately after user B posts it.
 Results should remain between sessions.
 Only show the last 10 calculations descending from most recent to oldest.
 Once the calculator is completed, send me the URL for your application.
+
+api routes:
+post /calculate/x/y -> (request(x,y) -> response(calculation))
+get /calculations
