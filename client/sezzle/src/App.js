@@ -8,7 +8,7 @@ class App extends React.Component {
     handleSubmit = (event) => {
       event.preventDefault();
       var {Op, X, Y} = event.target
-      axios.get(`/calculate/${Op.value}/${X.value}/${Y.value}`).then(() => {
+      axios.get(`http://localhost:8081/calculate/${Op.value}/${X.value}/${Y.value}`).then(() => {
         this.updateCalculations();
       });
     }
@@ -18,7 +18,7 @@ class App extends React.Component {
     }
 
     updateCalculations = () => {
-      axios.get(`calculations`)
+      axios.get(`http://localhost:8081/calculations`)
       .then(res => {
         const calculations = res.data;
         if (calculations)
