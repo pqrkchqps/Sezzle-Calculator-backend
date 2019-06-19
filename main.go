@@ -127,7 +127,15 @@ func handleRequests() {
   http.HandleFunc("/calculations/reset", resetCalculations)
 
 
-  log.Fatal(http.ListenAndServe(":8081", nil))
+  port := os.Getenv("PORT")
+    if port == "" {
+      port = ":8081"
+    }
+    log.Fatal(http.ListenAndServe(port, nil))port := os.Getenv("PORT")
+  if port == "" {
+    port = ":8081"
+  }
+  log.Fatal(http.ListenAndServe(port, nil))
 }
 
 func main() {
