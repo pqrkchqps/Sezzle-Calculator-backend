@@ -128,10 +128,6 @@ func handleRequests() {
 
 
   port := os.Getenv("PORT")
-    if port == "" {
-      port = ":8081"
-    }
-    log.Fatal(http.ListenAndServe(port, nil))port := os.Getenv("PORT")
   if port == "" {
     port = ":8081"
   }
