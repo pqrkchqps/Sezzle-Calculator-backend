@@ -109,13 +109,12 @@ func getCalculations(w http.ResponseWriter, r *http.Request){
   }
   calculations = calculations[idx:]
   fmt.Println(calculations)
-  w.Header().Set("Access-Control-Allow-Origin", "*")
-  w.Header().Add("Access-Control-Allow-Methods", "GET")
-  w.Header().Add("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-
   if err := json.NewEncoder(w).Encode(calculations); err != nil {
     panic(err)
   }
+  w.Header().Set("Access-Control-Allow-Origin", "*")
+  w.Header().Add("Access-Control-Allow-Methods", "GET")
+  w.Header().Add("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 }
 
 func resetCalculations(w http.ResponseWriter, r *http.Request){
