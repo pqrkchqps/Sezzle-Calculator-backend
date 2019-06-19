@@ -7,6 +7,6 @@
   "author": "John A Creps <johnacreps@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "cd client/sezzle/ && yarn install && yarn start"
+    "start": "cd client/sezzle/ && npm install && npm start"
   }
 }
