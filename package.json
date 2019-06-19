@@ -7,6 +7,6 @@
   "author": "John A Creps <johnacreps@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
-  },
+    "build": "cd client/sezzle/ && npm start"
+  }
 }
