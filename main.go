@@ -134,7 +134,7 @@ func handleRequests() {
   } else {
     port = ":" + port
   }
-  log.Fatal(http.ListenAndServe(":8081", nil))
+  log.Fatal(http.ListenAndServe(port, nil))
 }
 
 func main() {
