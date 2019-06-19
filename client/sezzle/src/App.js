@@ -9,18 +9,20 @@ class App extends React.Component {
       event.preventDefault();
       var {Op, X, Y} = event.target
       axios.get(`/calculate/${Op.value}/${X.value}/${Y.value}`).then(() => {
-        axios.get(`calculations`)
-        .then(res => {
-          const calculations = res.data;
-          this.setState({ calculations: calculations });
-        })
+        this.updateCalculations();
       });
     }
     componentDidMount(){
+      this.updateCalculations();
+      var intervalId = setInterval(this.updateCalculations, 3000);
+    }
+
+    updateCalculations = () => {
       axios.get(`calculations`)
       .then(res => {
         const calculations = res.data;
-        this.setState({ calculations: calculations });
+        if (calculations)
+          this.setState({ calculations: calculations });
       })
     }
 
