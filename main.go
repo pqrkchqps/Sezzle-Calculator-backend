@@ -9,6 +9,7 @@ import(
   "strings"
   "strconv"
   "encoding/json"
+  "os"
 )
 
 type Calculation struct {
@@ -127,6 +128,12 @@ func handleRequests() {
   http.HandleFunc("/calculations/reset", resetCalculations)
 
 
+  port := os.Getenv("PORT")
+  if port == "" {
+    port = ":8081"
+  } else {
+    port = ":" + port
+  }
   log.Fatal(http.ListenAndServe(":8081", nil))
 }
 
