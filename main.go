@@ -109,7 +109,7 @@ func getCalculations(w http.ResponseWriter, r *http.Request){
   }
   calculations = calculations[idx:]
   fmt.Println(calculations)
-  (w).Header().Set("Access-Control-Allow-Origin", "https://arcane-sierra-66995.herokuapp.com")
+  (w).Header().Set("Access-Control-Allow-Origin", "*")
 
   if err := json.NewEncoder(w).Encode(calculations); err != nil {
     panic(err)
