@@ -1,0 +1,12 @@
+{
+	"ImportPath": "sezzle",
+	"GoVersion": "go1.10",
+	"GodepVersion": "v80",
+	"Deps": [
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.7.2",
+			"Rev": "ed099d42384823742bba0bf9a72b53b55c9e2e38"
+		}
+	]
+}
