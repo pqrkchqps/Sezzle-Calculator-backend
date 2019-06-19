@@ -9,7 +9,6 @@ import(
   "strings"
   "strconv"
   "encoding/json"
-  "os"
 )
 
 type Calculation struct {
